@@ -110,7 +110,21 @@ function App() {
             <div className="dropdown dropdown-end">
               <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                 <div className="w-10 rounded-full">
-                  <div className="bg-primary text-white flex items-center justify-center h-full">
+                  {currentUser ? (
+                    <img 
+                      src={`/${currentUser.toLowerCase()}.png`} 
+                      alt={currentUser}
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextElementSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div 
+                    className="bg-primary text-white flex items-center justify-center h-full w-full" 
+                    style={{display: currentUser ? 'none' : 'flex'}}
+                  >
                     {currentUser?.charAt(0)?.toUpperCase() || 'U'}
                   </div>
                 </div>

@@ -17,11 +17,6 @@ export default function UnpaidComponent({ utangs, setUtangs, currentUser }) {
 
     return (
         <div className="w-full max-w-md">
-            <SearchComponent
-                utangs={utangs}
-                setFilteredUtangs={setFilteredUtangs}
-                setIsLoading={setIsLoading}
-            />
             {isLoading ? (
                 <div className="py-8">
                     <LoadingSpinner size="lg" color="primary" />
@@ -32,7 +27,11 @@ export default function UnpaidComponent({ utangs, setUtangs, currentUser }) {
                     <li className="p-4 pt-5 text-xs opacity-60 tracking-wide">
                         {filteredUtangs ? `Found ${filteredUtangs.length} results` : 'List of lahat ng naging loans'}
                     </li>
-
+                    <SearchComponent
+                        utangs={utangs}
+                        setFilteredUtangs={setFilteredUtangs}
+                        setIsLoading={setIsLoading}
+                    />
                     {
                         (filteredUtangs || utangs) &&
                         (filteredUtangs || utangs).map((utang) => {

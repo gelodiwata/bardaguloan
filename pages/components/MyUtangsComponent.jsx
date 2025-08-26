@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useToast } from '../../contexts/ToastContext'
 import { firebaseService } from '../../lib/firebaseService'
 
-export default function MyUtangsComponent({ utangs, setUtangs, currentUser, userId }) {
+export default function MyUtangsComponent({ utangs, setUtangs, currentUser }) {
     const { showToast } = useToast();
     const [selectedUtang, setSelectedUtang] = useState(null);
     const [receiptImage, setReceiptImage] = useState(null);
@@ -42,12 +42,7 @@ export default function MyUtangsComponent({ utangs, setUtangs, currentUser, user
         };
 
         try {
-            if (!userId) {
-                showToast('User not authenticated', 'error');
-                return;
-            }
-
-            const result = await firebaseService.updateUtang(userId, selectedUtang.id, paidUtang);
+            const result = await firebaseService.updateUtang(selectedUtang.id, paidUtang);
             
             if (result.success) {
                 // Show success toast

@@ -9,19 +9,14 @@ import { firebaseService } from '../../lib/firebaseService';
 import { useToast } from '../../contexts/ToastContext';
 
 
-export default function TabComponent({ currentUser, utangs, setUtangs, userId }) {
+export default function TabComponent({ currentUser, utangs, setUtangs }) {
     const { showToast } = useToast();
     const [editingUtang, setEditingUtang] = useState(null);
     const handleSubmit = async (utangData, originalUtang) => {
         try {
-            if (!userId) {
-                showToast('User not authenticated', 'error');
-                return;
-            }
-
             if (originalUtang && originalUtang.id) {
                 // Editing existing utang
-                const result = await firebaseService.updateUtang(userId, originalUtang.id, utangData);
+                const result = await firebaseService.updateUtang(originalUtang.id, utangData);
                 if (result.success) {
                     showToast('Utang updated successfully!', 'success');
                 } else {
@@ -29,7 +24,7 @@ export default function TabComponent({ currentUser, utangs, setUtangs, userId })
                 }
             } else {
                 // Adding new utang
-                const result = await firebaseService.addUtang(userId, utangData);
+                const result = await firebaseService.addUtang(utangData);
                 if (result.success) {
                     showToast('Utang added successfully!', 'success');
                 } else {
@@ -73,7 +68,7 @@ export default function TabComponent({ currentUser, utangs, setUtangs, userId })
 
                 <input type="radio" name="my_tabs_2" className="tab" aria-label="Utang ko" />
                 <div className="tab-content bg-base-100 border-base-300 p-3">
-                    <MyUtangsComponent utangs={utangs} setUtangs={setUtangs} currentUser={currentUser} userId={userId} />
+                    <MyUtangsComponent utangs={utangs} setUtangs={setUtangs} currentUser={currentUser} />
                 </div>
                 
                 <input type="radio" name="my_tabs_2" className="tab" aria-label="Resibo" />
@@ -125,7 +120,6 @@ export default function TabComponent({ currentUser, utangs, setUtangs, userId })
                             <BatchForm
                                 onSubmit={handleSubmit}
                                 currentUser={currentUser}
-                                userId={userId}
                             />
                         </div>
                     </div>

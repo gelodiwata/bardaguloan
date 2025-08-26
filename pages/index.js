@@ -27,15 +27,9 @@ function App() {
     }
   }, [authUser]);
 
-  // Load utangs from Firebase Realtime Database for authenticated user
+  // Load utangs from Firebase Realtime Database (global)
   useEffect(() => {
-    if (!authUser) {
-      setUtangs([]);
-      return;
-    }
-
     const unsubscribe = firebaseService.subscribeToUtangs(
-      authUser.uid,
       (data) => {
         setUtangs(data);
       },
@@ -48,7 +42,7 @@ function App() {
     return () => {
       if (unsubscribe) unsubscribe();
     };
-  }, [authUser, showToast]);
+  }, [showToast]);
 
   const handleLogout = async () => {
     const result = await logoutUser();
@@ -144,7 +138,6 @@ function App() {
           currentUser={currentUser}
           utangs={utangs}
           setUtangs={setUtangs}
-          userId={authUser.uid}
         />
         <PWAInstallPrompt />
       </main>

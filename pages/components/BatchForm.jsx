@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useToast } from '../../contexts/ToastContext'
 import { firebaseService } from '../../lib/firebaseService'
 
-export default function BatchForm({ onSubmit, currentUser, userId }) {
+export default function BatchForm({ onSubmit, currentUser }) {
     const { showToast } = useToast();
     const [formData, setFormData] = useState({
         selectedNames: [],
@@ -30,11 +30,6 @@ export default function BatchForm({ onSubmit, currentUser, userId }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         
-        if (!userId) {
-            showToast('User not authenticated', 'error');
-            return;
-        }
-
         if (formData.selectedNames.length === 0 || !formData.item || !formData.amount) {
             showToast('Please fill in all required fields', 'error');
             return;
@@ -53,7 +48,7 @@ export default function BatchForm({ onSubmit, currentUser, userId }) {
         }));
 
         try {
-            const result = await firebaseService.addBatchUtangs(userId, utangsToAdd);
+            const result = await firebaseService.addBatchUtangs(utangsToAdd);
             
             if (result && result.success) {
                 showToast(`${formData.selectedNames.length} utang records added successfully!`, 'success');

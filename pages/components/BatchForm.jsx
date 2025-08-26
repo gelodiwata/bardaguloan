@@ -29,7 +29,7 @@ export default function BatchForm({ onSubmit, currentUser }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         if (formData.selectedNames.length === 0 || !formData.item || !formData.amount) {
             showToast('Please fill in all required fields', 'error');
             return;
@@ -40,7 +40,7 @@ export default function BatchForm({ onSubmit, currentUser }) {
             img: `${name.toLowerCase()}.png`,
             details: {
                 amount: Number(formData.amount),
-                to: formData.to,
+                to: currentUser,
                 item: formData.item,
                 date: formData.date,
                 paid: formData.paid
@@ -49,10 +49,10 @@ export default function BatchForm({ onSubmit, currentUser }) {
 
         try {
             const result = await firebaseService.addBatchUtangs(utangsToAdd);
-            
+
             if (result && result.success) {
                 showToast(`${formData.selectedNames.length} utang records added successfully!`, 'success');
-                
+
                 // Reset form
                 setFormData({
                     selectedNames: [],
@@ -62,7 +62,7 @@ export default function BatchForm({ onSubmit, currentUser }) {
                     date: new Date().toISOString().split('T')[0],
                     paid: false
                 });
-                
+
                 // Close the modal
                 document.getElementById('my_modal_1').close();
             } else {
@@ -127,9 +127,9 @@ export default function BatchForm({ onSubmit, currentUser }) {
                         <span>Creating {formData.selectedNames.length} utang records</span>
                     )}
                 </div>
-                <button 
-                    type="submit" 
-                    className="btn btn-primary" 
+                <button
+                    type="submit"
+                    className="btn btn-primary"
                     disabled={formData.selectedNames.length === 0}
                 >
                     Save All

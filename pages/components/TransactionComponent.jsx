@@ -40,7 +40,7 @@ export default function UnpaidComponent({ utangs, setUtangs, currentUser }) {
                                     <div><img className="size-13 rounded-box" src={`/${utang.img}`} alt={utang.name} /></div>
                                     <div className='flex flex-row w-full gap-1 items-center justify-between'>
                                         <div className="flex flex-col items-start justify-center">
-                                            <h1 className='font-semibold'>{utang.name} <span className='text-xs opacity-50'>{utang.details.paid ? <span className='text-success'>paid</span> : 'send money 3'}</span></h1>
+                                            <h1 className='font-semibold'>{utang.name} <span className='text-xs opacity-50'>{utang.details.paid ? <span className='text-success'>paid</span> : 'send money to'}</span></h1>
                                             <div className="text-sm uppercase font-black opacity-80"> <span className='font-normal opacity-60 normal-case'></span>{utang.details.to}</div>
                                             <div className="text-sm uppercase italic font-normal opacity-60">{utang.details.item}</div>
                                         </div>

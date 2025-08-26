@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import PrimaryStatComponent from './components/PrimaryStatComponent'
 import TabComponent from './components/TabComponent'
+import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { useState, useEffect } from 'react'
 import { firebaseService } from '../lib/firebaseService'
 import { AuthProvider, useAuth } from '../contexts/AuthContext'
@@ -79,13 +80,14 @@ function App() {
         </Head>
         <main className="w-full min-h-screen flex flex-col items-center justify-center p-4 bg-base-200">
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold mb-2">Welcome to Bardaguloan</h1>
-            <p className="text-lg opacity-70">Track your utangs and payments easily</p>
+            <h1 className="text-4xl font-bold mb-2">Bar<span className='text-purple-400 font-black italic text-5xl'>dagul</span>oan</h1>
+            <p className="text-lg opacity-70">utang with ease 💅🏼</p>
           </div>
           <AuthModal
             isOpen={showAuthModal}
             onClose={() => setShowAuthModal(false)}
           />
+          <p className="text-sm tracking-wide font-thin mt-10 opacity-50">powered by RTSSC ✨</p>
         </main>
       </>
     );
@@ -96,7 +98,7 @@ function App() {
       <Head>
         <title>Bardaguloan App</title>
         <meta name="description" content="Track utangs and payments" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="w-full min-h-screen flex flex-col items-center justify-start p-2 gap-2 bg-base-200">
@@ -130,6 +132,7 @@ function App() {
           setUtangs={setUtangs}
           userId={authUser.uid}
         />
+        <PWAInstallPrompt />
       </main>
     </>
   )

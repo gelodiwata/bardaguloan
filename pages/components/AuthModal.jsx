@@ -10,13 +10,6 @@ export default function AuthModal({ isOpen, onClose }) {
   return (
     <div className="flex items-center justify-center z-100">
       <div className="max-w-md w-full mx-4">
-        <button
-          className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-
         <div className="flex justify-center mb-4">
           <div className="tabs tabs-boxed">
             <button
